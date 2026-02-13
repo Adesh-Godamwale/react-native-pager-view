@@ -1,10 +1,6 @@
 apply plugin: "com.android.library"
 apply plugin: "org.jetbrains.kotlin.android"
-
-def isNewArchitectureEnabled() {
-  return rootProject.hasProperty("newArchEnabled") &&
-         rootProject.getProperty("newArchEnabled") == "true"
-}
+apply plugin: "com.facebook.react"
 
 android {
   namespace "com.reactnativepagerview"
@@ -14,7 +10,6 @@ android {
   defaultConfig {
     minSdkVersion 21
     targetSdkVersion 34
-    buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
   }
 
   buildFeatures {
@@ -38,14 +33,10 @@ android {
 
   sourceSets {
     main {
-      if (isNewArchitectureEnabled()) {
-        java.srcDirs += [
-          "src/fabric/java",
-          "${project.buildDir}/generated/source/codegen/java"
-        ]
-      } else {
-        java.srcDirs += ["src/paper/java"]
-      }
+      java.srcDirs += [
+        "src/fabric/java",
+        "${buildDir}/generated/source/codegen/java"
+      ]
     }
   }
 }
@@ -61,10 +52,8 @@ dependencies {
   implementation "androidx.viewpager2:viewpager2:1.1.0"
 }
 
-if (isNewArchitectureEnabled()) {
-  react {
-    jsRootDir = file("../src")
-    libraryName = "RNCViewPager"
-    codegenJavaPackageName = "com.reactnativepagerview"
-  }
+react {
+  jsRootDir = file("../src")
+  libraryName = "RNCViewPager"
+  codegenJavaPackageName = "com.reactnativepagerview"
 }

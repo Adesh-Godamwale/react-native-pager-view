@@ -117,7 +117,7 @@
     "useTabs": false
   },
   "codegenConfig": {
-    "name": "pagerview",
+    "name": "RNCViewPager",
     "type": "components",
     "jsSrcsDir": "src",
     "android": {
@@ -125,7 +125,7 @@
     },
     "ios": {
       "componentProvider": {
-        "RNCViewPager": "RNCPagerViewComponentView"
+        "RNCViewPager": "RNCViewPagerComponentView"
       }
     }
   },
